@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 * {
         font-size: 14px;
         --main-color: #2196f3;
@@ -41,7 +41,7 @@ body {
 }
 
 .entry-content {
-    padding: 5px 9px 8px 9px;
+    padding: 5px 9px 9px 9px;
     width: 100%;
 }
 .content-bottom {
@@ -194,6 +194,16 @@ body {
     padding: .1rem .5rem;
     margin: 0 1em;
 }
+.entry-button {
+    width: 186px;
+}
+.details-button {
+    margin-bottom: 7px !important;
+}
+
+.vertical-form .MuiTextField-root {
+    margin: .5em 0;
+}
 /* =============================================================================
 | RESPONSIVE QUERY
 ============================================================================= */
@@ -204,6 +214,15 @@ body {
 }
 @media screen and (max-width: 768px) {
     .entry-content {
+        flex-direction: column;
+    }
+    .entry-button {max-width: 50%;}
+    .content-right {
+        flex-direction: column !important;
+        padding: 0px 16px;
+    }
+    .entry-title {text-align: center}
+    .content-bottom {
         flex-direction: column;
     }
     .insurance-entry-table {
@@ -217,12 +236,27 @@ body {
         width: 50%;
         padding-right: .5em;
         text-align: left;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+    .details-button {
+        margin-right: 10px !important;
+        margin-bottom: 0px !important;
+    }
+    .contact-button {
+        margin-left: 10px !important;
+    }
+
+    .price-content div {
+        flex: 1 !important; 
     }
     .price-content h3 {
         font-size: 2rem;
     }
     .button-content {
-        width: 50%;
+        width: 100%;
+        flex-direction: row !important;
     }
 
     .mobile-hide {display: none}
@@ -235,7 +269,7 @@ body {
 
     .insurance-entry-table-mobile {
         width: 100%;
-        margin-bottom: 1.5em;
+        margin-bottom: 5px;
     } 
 
     .insurance-entry-table-mobile .MuiTableCell-sizeSmall {

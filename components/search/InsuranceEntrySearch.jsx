@@ -186,18 +186,25 @@ const PricingInfo = ({ ProviderMap, PlanTypeMap, subTitle, totalUF, price, provi
     return (
         <>
             <div className="price-content">
-                <h3 className="entry-price dm-text-1">${price}</h3>
-                <p className="dm-text-2" style={{ fontSize: '12px', textAlign: 'center' }}>Valor en UF: {totalUF}</p>
-                {/* <p style={{ marginTop: '-.5em', marginBottom: '.5em', textAlign: 'center' }}>Base UF: {baseUF}</p> */}
-                <p className="entry-description">{PlanTypeMap[subTitle].name}</p>
-                <img className="" src={ProviderMap[provider].logo} style={{ height: 30 }} />
+                <div>
+                    <h3 className="entry-price dm-text-1 mobile-hide">${price}</h3>
+                    <p className="dm-text-2 mobile-hide" style={{ fontSize: '12px', textAlign: 'center' }}>Valor en UF: {totalUF}</p>
+                    {/* <p style={{ marginTop: '-.5em', marginBottom: '.5em', textAlign: 'center' }}>Base UF: {baseUF}</p> */}
+                    <p className="entry-description">{PlanTypeMap[subTitle].name}</p>
+                    <img className="" src={ProviderMap[provider].logo} style={{ height: 30 }} />
+                </div>
+
+                <div className="mobile-show">
+                    <p className="dm-text-2" style={{ fontSize: '12px', textAlign: 'center' }}>Valor en UF: {totalUF}</p>
+                    <h3 className="entry-price dm-text-1" style={{ marginBottom: '8px' }}>${price}</h3>
+                </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }} className="button-content">
 
 
-                <ButtonWrapper variant="contained" style={{ width: '186px', marginTop: '5px', marginBottom: '7px' }} click={() => setModalOpen(true)} className="btn-primary hover-grow">VER DETALLES</ButtonWrapper>
+                <ButtonWrapper variant="contained" click={() => setModalOpen(true)} className="btn-primary hover-grow entry-button details-button">VER DETALLES</ButtonWrapper>
 
-                <ButtonWrapper variant="contained" className="hover-grow btn-secondary">CONTRATAR</ButtonWrapper>
+                <ButtonWrapper variant="contained" className="hover-grow btn-secondary entry-button contact-button">CONTRATAR</ButtonWrapper>
 
             </div>
 

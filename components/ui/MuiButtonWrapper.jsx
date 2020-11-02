@@ -2,7 +2,7 @@ import useSound from 'use-sound';
 import { Button } from '@material-ui/core'
 
 
-const ButtonWrapper = ({ children, variant, color, size, className, style, click }) => {
+const ButtonWrapper = ({ children, variant, color, size, className, style, click, type }) => {
 
     let audio = React.useRef(null)
 
@@ -20,6 +20,7 @@ const ButtonWrapper = ({ children, variant, color, size, className, style, click
                 className={className}
                 onClick={play}
                 style={style}
+                type={type}
             >
                 {children}
             </Button>

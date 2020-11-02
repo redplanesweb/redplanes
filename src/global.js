@@ -38,6 +38,7 @@ export const GlobalStyles = createGlobalStyle`
         background: ${({ theme }) => theme.panel_primary_background};
         color: #ffffff;
         font-size: 17px;
+        font-weight: 500;
     }
     .btn-primary:hover {
         background: ${({ theme }) => theme.panel_primary_background};

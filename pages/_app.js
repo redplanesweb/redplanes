@@ -19,28 +19,40 @@ const useStore = create(set => ({
     ageMap: {},
     planType: {},
     mapsLoaded: false,
+    seller: {},
     setData: (data) => set(state => ({
+        ...state,
         regionMap: data.region,
         centerMap: data.center,
         providerMap: data.provider,
         ageMap: data.age,
         planType: data.planType,
         mapsLoaded: data.success
-    }))
+    })),
+    setSeller: (data) => set(state => ({ ...state, seller: data })),
+    setState: (data) => set(state => ({ ...state, pageProps: data }))
 }))
+
 
 
 // =============================================================================
 // EXPORT
 // =============================================================================
 const MyApp = ({ Component, pageProps }) => {
+    let store = useStore(state => state)
+
+
+
     React.useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles) {
             jssStyles.parentElement.removeChild(jssStyles);
         }
+        store.setState(pageProps)
     }, []);
+
+    console.log(store)
 
     return (
         <React.Fragment>
@@ -51,7 +63,7 @@ const MyApp = ({ Component, pageProps }) => {
             <Providers>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <GlobalStyles />
-                <Component {...pageProps} useStore={useStore} firebase={firebase} />
+                <Component store={store} useStore={useStore} firebase={firebase} />
             </Providers>
 
         </React.Fragment>

@@ -24,7 +24,7 @@ const SettingsContent = ({ useStore, firebase }) => {
                 <Grid container spacing={3}>
 
                     {/* <AgeWidget ageMap={state.ageMap} /> */}
-                    <GesWidget gesMap={state.providerMap} />
+                    <GesWidget gesMap={state.providerMap} firebase={firebase} />
 
                 </Grid>
             </section>
@@ -190,7 +190,7 @@ const AgeWidget = ({ ageMap }) => {
     )
 }
 
-const GesWidget = ({ gesMap }) => {
+const GesWidget = ({ gesMap, firebase }) => {
     const [modalOpen, setModalOpen] = React.useState(false)
 
     // =========================================================================
@@ -206,11 +206,11 @@ const GesWidget = ({ gesMap }) => {
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
             >
-                <EditGesModal currentGES={gesMap} setModalOpen={setModalOpen} />
+                <EditGesModal currentGES={gesMap} setModalOpen={setModalOpen} firebase={firebase} />
             </Modal>
 
             <div className="dm-panel-one-background" style={{ padding: '0.5em', borderRadius: '4px', display: 'flex', alignItems: 'center' }}>
-                <h1 style={{ fontSize: '1.2rem' }}>GES Values</h1>
+                <h1 style={{ fontSize: '1.2rem' }}>Isapres Settings</h1>
                 <span style={{ flex: 1 }}></span>
                 <Button size="small" className="btn-secondary" onClick={() => setModalOpen(true)}>Edit</Button>
             </div>
@@ -218,6 +218,10 @@ const GesWidget = ({ gesMap }) => {
             {
                 Object.keys(gesMap).map(provider => {
                     let entry = gesMap[provider]
+                    console.log(entry)
+
+                    let percent = (entry.comission_rate * 100)
+
                     return (
                         <div className="dm-panel-two-background" style={{ display: 'flex', padding: '0.5em', margin: '.5em 0', borderRadius: '4px' }}>
                             <div style={{ width: '200px' }}>
@@ -227,6 +231,10 @@ const GesWidget = ({ gesMap }) => {
                             <div style={{ width: '200px' }}>
                                 <p style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>GES Value</p>
                                 <p>{entry.ges}</p>
+                            </div>
+                            <div style={{ width: '200px' }}>
+                                <p style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>Commission Percent</p>
+                                <p>{Math.floor(percent)}%</p>
                             </div>
                         </div>
                     )
@@ -373,30 +381,41 @@ const EditAgeModal = ({ currentAges, modelOpen, setModalOpen }) => {
     )
 }
 
-const EditGesModal = ({ currentGES, setModalOpen }) => {
+const EditGesModal = ({ currentGES, setModalOpen, firebase }) => {
     const [spinner, setSpinner] = React.useState(false)
     const [newGES, setNewGES] = React.useState([])
 
     const handleSubmit = () => {
-        alert('editing disabled')
-        setModalOpen(false)
+        setSpinner(true)
 
+        firebase.firestore().collection('maps').doc("provider_map").set(newGES)
+            .then(() => {
+                setSpinner(false)
+                setModalOpen(false)
+            })
     }
 
-    const handleGesChange = (e, entry) => {
-        let value = e.target.value
-        setNewGES({ ...newGES, [entry]: { ...newGES[entry], ges: value } })
+    const handleGesChange = (e, entry, type) => {
+        console.log(entry)
+
+        let value = parseFloat(e.target.value)
+        setNewGES({ ...newGES, [entry]: { ...newGES[entry], ges: type == 'g' ? value : newGES[entry].ges, comission_rate: type == 'c' ? value : newGES[entry].comission_rate } })
     }
 
 
     React.useEffect(() => {
+        console.log(currentGES)
         if (Object.keys(currentGES).length) {
             setNewGES(currentGES)
         }
     }, [currentGES])
 
+    React.useEffect(() => {
+        console.log(newGES)
+    }, [newGES])
+
     return (
-        <div style={{ maxWidth: '500px', padding: '1.5em', margin: '0 auto', marginTop: '10vh' }} className="dm-panel-three-background">
+        <div style={{ maxWidth: '800px', padding: '1.5em', margin: '0 auto', marginTop: '10vh' }} className="dm-panel-three-background">
             <h1 style={{ fontSize: '1.3rem', marginBottom: '1em' }}>Change GES</h1>
 
             {
@@ -409,8 +428,10 @@ const EditGesModal = ({ currentGES, setModalOpen }) => {
                             Object.keys(newGES).map(entry => {
                                 return (
                                     <div style={{ display: 'flex', marginBottom: '1.2em', alignItems: 'center' }}>
-                                        <p style={{ width: '150px' }}>{newGES[entry].name}</p>
-                                        <TextField value={newGES[entry].ges} label="GES Value" variant="outlined" size="small" className="material-input" style={{ width: '100%' }} onChange={e => handleGesChange(e, entry)} />
+                                        <p style={{ width: '250px' }}>{newGES[entry].name}</p>
+                                        <TextField value={newGES[entry].ges} label="GES Value" variant="outlined" size="small" className="material-input" style={{ width: '100%', marginRight: '1em' }} onChange={e => handleGesChange(e, entry, 'g')} />
+
+                                        <TextField value={newGES[entry].comission_rate} label="GES Value" variant="outlined" size="small" className="material-input" style={{ width: '100%' }} onChange={e => handleGesChange(e, entry, 'c')} />
                                     </div>
                                 )
                             })

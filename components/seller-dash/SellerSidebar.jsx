@@ -23,11 +23,8 @@ import {
 } from '@material-ui/core';
 
 const menuConfig = [
-    { name: "Subir planes", url: "/admin/dashboard" },
-    { name: "Planes en el sistema", url: "/admin/entries" },
-    { name: "Configuración", url: "/admin/settings" },
-    { name: "Mass Upload", url: "/admin/mass-upload" },
-    { name: "Sellers", url: "/admin/seller" },
+    { name: "Home", url: "/seller/home" },
+    { name: "Purchased", url: "/seller/purchased" },
 ]
 
 // =============================================================================
