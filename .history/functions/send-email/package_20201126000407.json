@@ -5,8 +5,7 @@
   "main": "send-email.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "",
-"build": "next build"
+    dev
   },
   "keywords": [
     "netlify",
