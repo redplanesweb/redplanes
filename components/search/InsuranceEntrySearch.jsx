@@ -204,7 +204,7 @@ const PricingInfo = ({ ProviderMap, PlanTypeMap, subTitle, totalUF, price, provi
 
                 <ButtonWrapper variant="contained" click={() => setModalOpen(true)} className="btn-primary hover-grow entry-button details-button">VER DETALLES</ButtonWrapper>
 
-                <ButtonWrapper variant="contained" className="hover-grow btn-secondary entry-button contact-button">CONTRATAR</ButtonWrapper>
+                {/* <ButtonWrapper variant="contained" className="hover-grow btn-secondary entry-button contact-button">CONTRATAR</ButtonWrapper> */}
 
             </div>
 

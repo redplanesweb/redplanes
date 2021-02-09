@@ -62,6 +62,13 @@ const InitialPoint = ({ firebase }) => {
             return
         }
 
+/* -------------------------------------------------------------------------- */
+/*                        GETTING LIVE UF TO PESO DATA                        */
+/* -------------------------------------------------------------------------- */
+
+        const request= await (await fetch('https://mindicador.cl/api')).json();
+        const price=request.uf.valor
+
 
         // Query Database
         firebase.firestore().collection("maps").get().then(function (querySnapshot) {
@@ -69,7 +76,8 @@ const InitialPoint = ({ firebase }) => {
             firebase.firestore().collection('uf_to_peso').get().then(snapshot => {
 
                 // get latest price
-                let rate = snapshot.docs[0].data()
+                // let rate = snapshot.docs[0].data()
+                let rate = price
 
                 // get map data
                 let docs = querySnapshot.docs.map(doc => {
@@ -91,7 +99,8 @@ const InitialPoint = ({ firebase }) => {
                 // Update States
                 setMaps(maps)
                 setPeople({ primary: primary, beneficiaries: cargasList })
-                setCurrentRate(rate.uf_to_peso)
+                // setCurrentRate(rate.uf_to_peso)
+                setCurrentRate(rate)
                 setSubmit(true)
             })
 
