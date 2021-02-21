@@ -431,7 +431,7 @@ const EditGesModal = ({ currentGES, setModalOpen, firebase }) => {
                                         <p style={{ width: '250px' }}>{newGES[entry].name}</p>
                                         <TextField value={newGES[entry].ges} label="GES Value" variant="outlined" size="small" className="material-input" style={{ width: '100%', marginRight: '1em' }} onChange={e => handleGesChange(e, entry, 'g')} />
 
-                                        <TextField value={newGES[entry].comission_rate} label="GES Value" variant="outlined" size="small" className="material-input" style={{ width: '100%' }} onChange={e => handleGesChange(e, entry, 'c')} />
+                                        <TextField value={newGES[entry].comission_rate} label="Commission Percent" variant="outlined" size="small" className="material-input" style={{ width: '100%' }} onChange={e => handleGesChange(e, entry, 'c')} />
                                     </div>
                                 )
                             })
