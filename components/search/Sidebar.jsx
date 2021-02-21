@@ -23,6 +23,7 @@ import {
     CircularProgress,
     Switch
 } from '@material-ui/core';
+import { useEffect } from 'react';
 
 
 // =============================================================================
@@ -114,7 +115,7 @@ const Sidebar = (props) => {
         let new_cargas = people.beneficiaries.map(entry => entry)
         new_cargas[index].age = value
         setPeople({ ...people, beneficiaries: new_cargas })
-
+       
     }
 
     const handlePrimaryChange = (event, person) => {
@@ -122,12 +123,16 @@ const Sidebar = (props) => {
         let primaries = { ...people.primary, [person]: value }
 
         setPeople({ ...people, primary: primaries })
+        
+        
 
     }
     // =========================================================================
     // EFFECTS
     // =========================================================================
+    useEffect(() => {
 
+    },[setPeople])
 
     // =========================================================================
     // RETURN

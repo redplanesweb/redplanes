@@ -134,6 +134,8 @@ const InitialPoint = ({ firebase }) => {
     )
 }
 
+
+
 // =============================================================================
 // SEARCH PAGE LAYOUT
 // =============================================================================
@@ -222,7 +224,7 @@ const SearchLayout = ({ submit, people, maps, firebase, currentRate }) => {
 
 
 
-    }, [submit])
+    }, [submit,people])
 
     // =========================================================================
     // FILTER
@@ -378,6 +380,8 @@ const SearchLayout = ({ submit, people, maps, firebase, currentRate }) => {
                                 people={clients}
                                 setPeople={setClient}
                                 currentRate={currentRate}
+                               
+                                
                             />
                         }
 
