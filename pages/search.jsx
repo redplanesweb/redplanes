@@ -68,7 +68,7 @@ const InitialPoint = ({ firebase }) => {
 
         const request= await (await fetch('https://mindicador.cl/api')).json();
         const price=request.uf.valor
-
+        console.log({firebase})
 
         // Query Database
         firebase.firestore().collection("maps").get().then(function (querySnapshot) {
