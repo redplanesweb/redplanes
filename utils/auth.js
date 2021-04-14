@@ -12,7 +12,7 @@ if (!firebase.apps.length) {
     // storageBucket: "red-planes-66ada.appspot.com",
     // messagingSenderId: "492770377202",
     // appId: "1:492770377202:web:2cb73ea96877e356e7bf6b",
-    // measurementId: "G-84M9G5E8QK"
+    // measurementId: "G-84M9G5E8QK",
     apiKey: "AIzaSyCsSKnOLZSWNxqobn_MejmIZgesOArnLzs",
     authDomain: "planesredproject.firebaseapp.com",
     databaseURL: "https://planesredproject-default-rtdb.firebaseio.com",
@@ -44,7 +44,7 @@ function useProvideAuth() {
     return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((response) => {
+      .then(response => {
         setUser(response.user);
         return response.user;
       });
@@ -54,7 +54,7 @@ function useProvideAuth() {
     return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
+      .then(response => {
         setUser(response.user);
         return response.user;
       });
@@ -69,7 +69,7 @@ function useProvideAuth() {
       });
   };
 
-  const sendPasswordResetEmail = (email) => {
+  const sendPasswordResetEmail = email => {
     return firebase
       .auth()
       .sendPasswordResetEmail(email)
@@ -90,7 +90,7 @@ function useProvideAuth() {
   };
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         setUser(user);
       } else {
@@ -111,6 +111,6 @@ function useProvideAuth() {
   };
 }
 
-const getFromQueryString = (key) => {
+const getFromQueryString = key => {
   return queryString.parse(window.location.search)[key];
 };
